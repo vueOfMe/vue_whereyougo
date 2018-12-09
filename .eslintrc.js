@@ -27,15 +27,24 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/script-indent': ['error', 2, {'baseIndent': 1}],
     'indent': 'off',
-    //空行最多不能超过100行
-    "no-multiple-empty-lines": [0, {"max": 100}],
-    "no-unused-vars": [2, {
-      // 允许声明未使用变量
+    //空行最多不能超过100行,关闭检测
+    "no-multiple-empty-lines": ['off', {"max": 100}],
+    "no-unused-vars": ['off', {
+      // 允许声明未使用的本地变量
       "vars": "local",
-      // 参数不检查
+      // 不检查函数参数
       "args": "none"
     }],
-    // 关闭语句强制分号结尾
-    "semi": [0],
+    // 关闭强制语句以分号结尾
+    "semi": ['off', 'always'],
+    // https://cn.eslint.org/docs/rules/comma-dangle
+    // 要求或禁止使用拖尾逗号 (comma-dangle),never为禁止使用
+    "comma-dangle": ["off", {
+      "arrays": "never",
+      "objects": "never",
+      "imports": "never",
+      "exports": "never",
+      "functions": "ignore"
+    }]
   }
 }
