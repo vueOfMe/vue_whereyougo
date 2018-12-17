@@ -45,6 +45,7 @@ module.exports = {
       "imports": "never",
       "exports": "never",
       "functions": "ignore"
-    }]
+    }],
+    "padded-blocks": ["warn", "never"]
   }
 }
