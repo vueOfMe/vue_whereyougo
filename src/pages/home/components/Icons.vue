@@ -82,6 +82,7 @@
   }
   // padding-bottom: 50%;实现宽高比为2:1
   .icons {
+    margin-top: .2rem
     width: 100%;
     overflow: hidden;
     height: 0;
