@@ -47,7 +47,7 @@
           this.recommendList = data.recommendList;
           this.weekendList = data.weekendList
         }
-        console.log(res)
+        // console.log(res)
       }
     },
     mounted: function () {
