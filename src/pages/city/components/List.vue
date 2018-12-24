@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="area" v-for="(item, key) of cities" :key="key">
+      <div class="area" v-for="(item, key) of cities" :key="key" :ref="key">
         <div class="title border-topbottom">{{key}}</div>
         <div class="item-list" v-for="innerItem of item" :key="innerItem.id">
           <div class="item border-bottom">{{innerItem.name}}</div>
@@ -34,10 +34,24 @@
     name: 'CityList',
     props: {
       cities: Object,
-      hotCities: Array
+      hotCities: Array,
+      letter: String
     },
+    // 使用$nextTick方法确保父元素wrapper和子元素的内容已经正确渲染
     mounted: function () {
-      this.scroll = new BScroll(this.$refs.wrapper)
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.wrapper, {});
+      })
+    },
+    // 监听父组件传递的letter的改变，如果letter不为空，则获取对应area元素，
+    // 并使用scrollToElement方法，将滑动页面定位到对应位置
+    watch: {
+      letter: function () {
+        if (this.letter) {
+          const element = this.$refs[this.letter][0];
+          this.scroll.scrollToElement(element);
+        }
+      }
     }
   }
 </script>

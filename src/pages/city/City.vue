@@ -2,8 +2,8 @@
   <div>
     <city-header></city-header>
     <city-search></city-search>
-    <city-list v-bind:cities="cities" v-bind:hotCities="hotCities"></city-list>
-    <city-alphabet v-bind:cities="cities"></city-alphabet>
+    <city-list v-bind:cities="cities" v-bind:hotCities="hotCities" v-bind:letter="letter"></city-list>
+    <city-alphabet v-bind:cities="cities" @change="handleLetterChange"></city-alphabet>
   </div>
 </template>
 
@@ -24,7 +24,8 @@
     data: function () {
       return {
         cities: {},
-        hotCities: []
+        hotCities: [],
+        letter: ''
       }
     },
     methods: {
@@ -38,7 +39,9 @@
           this.cities = data.cities;
           this.hotCities = data.hotCities;
         }
-        // console.log(res)
+      },
+      handleLetterChange: function (letter) {
+        this.letter = letter;
       }
     },
     mounted: function () {
