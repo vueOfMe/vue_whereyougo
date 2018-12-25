@@ -18,10 +18,18 @@
 </template>
 
 <script>
+  import {mapState, mapGetters} from 'vuex';
   export default {
     name: 'HomeHeader',
-    props: {
-      city: String
+    // props: {
+    //   city: String
+    // }
+
+    // 通过引入mapState，使用展开运算符，将vuex中的数据city映射到一个名为city的计算属性，
+    // 即可将this.$store.state.city简化为this.city
+    computed: {
+      ...mapState(['city']),
+      // ...mapGetters(['doubleCity']),
     }
   }
 </script>
@@ -61,7 +69,8 @@
   }
 
   .header-right {
-    width: 1.28rem;
+    min-width: 1.04rem;
+    padding: 0 .1rem;
     float: right;
     text-align: center;
     color: #ffffff

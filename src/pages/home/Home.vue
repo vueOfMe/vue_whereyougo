@@ -1,6 +1,7 @@
 <template>
   <div>
-    <home-header v-bind:city="city"></home-header>
+    <!--<home-header v-bind:city="city"></home-header>-->
+    <home-header></home-header>
     <home-swiper v-bind:swiperList="swiperList"></home-swiper>
     <home-icons v-bind:iconList="iconList"></home-icons>
     <home-recommend v-bind:recommendList="recommendList"></home-recommend>
@@ -26,7 +27,7 @@
     },
     data: function () {
       return {
-        city: '',
+        // city: '',
         swiperList: [],
         iconList: [],
         recommendList: [],
@@ -41,7 +42,7 @@
         res = res.data;
         if (res.ret && res.data) {
           const data = res.data;
-          this.city = data.city;
+          // this.city = data.city;
           this.swiperList = data.swiperList;
           this.iconList = data.iconList;
           this.recommendList = data.recommendList;

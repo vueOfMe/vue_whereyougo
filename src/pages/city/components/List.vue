@@ -5,21 +5,29 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">北京</div>
+            <div class="button">{{this.currentCity}}</div>
           </div>
         </div>
       </div>
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="button-list">
-          <div class="button-wrapper" v-for="item of hotCities" :key="item.id">
+          <div class="button-wrapper"
+               v-for="item of hotCities"
+               :key="item.id"
+               @click="handleCityClick(item.name)"
+          >
             <div class="button">{{item.name}}</div>
           </div>
         </div>
       </div>
       <div class="area" v-for="(item, key) of cities" :key="key" :ref="key">
         <div class="title border-topbottom">{{key}}</div>
-        <div class="item-list" v-for="innerItem of item" :key="innerItem.id">
+        <div class="item-list"
+             v-for="innerItem of item"
+             :key="innerItem.id"
+             @click="handleCityClick(innerItem.name)"
+        >
           <div class="item border-bottom">{{innerItem.name}}</div>
         </div>
       </div>
@@ -29,7 +37,9 @@
 </template>
 
 <script>
+  // 注意：该vue实例使用了vuex的高级用法，原始写法见Search.vue
   import BScroll from 'better-scroll';
+  import {mapState, mapMutations} from 'vuex'
   export default {
     name: 'CityList',
     props: {
@@ -37,10 +47,27 @@
       hotCities: Array,
       letter: String
     },
-    // 使用$nextTick方法确保父元素wrapper和子元素的内容已经正确渲染
-    mounted: function () {
-      this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.wrapper, {});
+    // 通过引入mapState，使用展开运算符，将vuex中的数据city映射到一个名为currentCity的计算属性，
+    // 即可将this.$store.state.city简化为this.currentCity
+    computed: {
+      ...mapState({
+        currentCity: 'city'
+      })
+    },
+    methods: {
+      handleCityClick: function (city) {
+        // 1.state->actions->mutations => state->mutations
+        // this.$store.dispatch('changeCity', city)
+
+        // 2.将this.$store.commit('changeCity', city);简化为this.changeCity(city);
+        // this.$store.commit('changeCity', city);
+        this.changeCity(city);
+        this.$router.push('/');
+      },
+      // 通过引入mapMutations，使用展开运算符，将vuex中名为changeCity的mutation映射到一个名为changeCity的方法上，
+      // 进而可已将this.$store.commit('changeCity', city);简化为this.changeCity(city);
+      ...mapMutations({
+        changeCity: 'changeCity'
       })
     },
     // 监听父组件传递的letter的改变，如果letter不为空，则获取对应area元素，
@@ -52,6 +79,12 @@
           this.scroll.scrollToElement(element);
         }
       }
+    },
+    // 使用$nextTick方法确保父元素wrapper和子元素的内容已经正确渲染
+    mounted: function () {
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.wrapper, {click: true});
+      })
     }
   }
 </script>

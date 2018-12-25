@@ -5,7 +5,11 @@
     </div>
     <div class="search-content" ref="search" v-show="keyword">
       <ul>
-        <li class="search-item border-bottom" v-for="item of list" :key="item.id">
+        <li class="search-item border-bottom"
+            v-for="item of list"
+            :key="item.id"
+            @click="handleCityClick(item.name)"
+        >
           {{item.name}}
         </li>
         <li class="search-item border-bottom" v-show="hasNoData">
@@ -17,6 +21,7 @@
 </template>
 
 <script>
+  // 注意：vuex的高级用法见List.vue
   import BScroll from 'better-scroll';
   export default {
     name: 'CitySearch',
@@ -28,6 +33,12 @@
         keyword: '',
         list: [],
         timer: null
+      }
+    },
+    methods: {
+      handleCityClick: function (city) {
+        this.$store.commit('changeCity', city);
+        this.$router.push('/');
       }
     },
     computed: {
@@ -60,7 +71,7 @@
     // 使用$nextTick方法确保父元素wrapper和子元素的内容已经正确渲染
     mounted: function () {
       this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.search, {});
+        this.scroll = new BScroll(this.$refs.search, {click: true});
       })
     },
   }
