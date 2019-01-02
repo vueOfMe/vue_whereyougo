@@ -25,6 +25,8 @@
     },
     methods: {
       handleScroll: function () {
+        // 检测window全局事件
+        // console.log(scroll);
         const top = document.documentElement.scrollTop;
         if (top > 60) {
           let opacity = top / 140;
@@ -36,11 +38,14 @@
         } else {
           this.showAbs = true;
         }
-        // console.log(document.documentElement.scrollTop)
       }
     },
+    // 注意：向window上添加的事件是全局事件，需要使用deactivated钩子函数对该全局事件进行解绑，将其作用范围限定在本页面中
     activated: function () {
       window.addEventListener('scroll', this.handleScroll)
+    },
+    deactivated: function () {
+      window.removeEventListener('scroll', this.handleScroll)
     }
   }
 </script>
