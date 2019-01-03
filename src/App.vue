@@ -12,7 +12,7 @@
         2.当使用了缓存技术（<keep-alive>）时，页面不会重新渲染，直接从内存中读取，
           但是有些数据却需要重新获取，不能使用原有内存中的数据，这时就可以使用vue实例的activated这个周期函数，进行相关操作，重新加载相关数据
     -->
-    <keep-alive>
+    <keep-alive exclude="Detail">
       <router-view/>
     </keep-alive>
   </div>

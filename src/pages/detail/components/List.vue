@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="item" v-for="(item, index) of list" v-bind:key="index">
+    <div class="item" v-for="(item, index) of categoryList" v-bind:key="index">
       <div class="item-title border-bottom">
         <span class="item-title-icon"></span>
         {{item.title}}
       </div>
       <!--递归组件的使用-->
       <div v-if="item.children" class="item-children">
-        <detail-list v-bind:list="item.children"></detail-list>
+        <detail-list v-bind:categoryList="item.children"></detail-list>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
   export default {
     name: 'DetailList',
     props: {
-      list: Array
+      categoryList: Array
     }
   }
 </script>
