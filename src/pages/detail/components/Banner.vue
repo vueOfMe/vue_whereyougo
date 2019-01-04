@@ -10,11 +10,13 @@
         </div>
       </div>
     </div>
-    <common-gallery
-      v-bind:imgs="galleryImgs"
-      v-show="showGallery"
-      @close="handleGalleryClose"
-    ></common-gallery>
+    <fade-animation>
+      <common-gallery
+        v-bind:imgs="galleryImgs"
+        v-show="showGallery"
+        @close="handleGalleryClose"
+      ></common-gallery>
+    </fade-animation>
   </div>
 </template>
 
@@ -22,6 +24,8 @@
   // import CommonGallery from 'src/common/gallery/Gallery'
   // common alias -> src/common
   import CommonGallery from 'common/gallery/Gallery'
+  import FadeAnimation from 'common/fade/FadeAnimation'
+
   export default {
     name: 'DetailBanner',
     props: {
@@ -35,7 +39,8 @@
       }
     },
     components: {
-      CommonGallery: CommonGallery
+      CommonGallery: CommonGallery,
+      FadeAnimation: FadeAnimation
     },
     methods: {
       handleBannerClick: function () {
