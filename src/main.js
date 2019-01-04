@@ -6,6 +6,8 @@ import router from './router/index'
 import store from './store/index'
 import fastclick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+// 部分安卓手机不支持promise特性，则打开该应用会出现白屏，则需下载并引入babel-polyfill包
+import 'babel-polyfill'
 import 'styles/reset.css'
 import 'styles/border.css'
 import 'styles/iconfont.css'
